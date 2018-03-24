@@ -128,24 +128,25 @@ $(".images").prepend("<div class='image-box'><img src='" + img.src + "'/></div>"
   }); //end save
 
 //load images
-function makeHtml(array, cl) {
+function makeHtml(array, show) { //show parameter is for data-show attribute, which marks showed files (for show/hide functionality)
   let imagesHtml = "";
   for (let i=0; i<array.length; i++){
-    imagesHtml = imagesHtml + "<div class='image-box' data-cl='"+ cl + "'><img src='" + dir + array[i] + "'/></div>"
+    imagesHtml = imagesHtml + "<div class='image-box' data-show='"+ show + "'><img src='" + dir + array[i] + "'/></div>"
   }
-  //imagesHtml = "<div class='images" + " " + cl + "'" + ">" + imagesHtml + "</div>";
   return imagesHtml;
-
 }
 
-
-$.get(dir, function(data){
+$.get("getdata.php", function(data){ //output of getdata.php is an array of file names as strings
   let added;
-  $(data).find("a:contains(" + fileextension + ")").each(function () {
-let filename = $(this).attr('href');
-names.unshift(filename);
-}); //end each
-if (names.length > 6){
+  files = JSON.parse(data);
+   $.each(files, function (i, val) {
+     if(i>1) { //we leave first two values as they are '.' and '..', not image files
+      names.unshift(val); //add received filanames to an array
+      }
+});
+//end each
+
+if (names.length > 6){ //show only first 6 from array
   restNames = names.splice(6);
   $('#show').css('display', 'block');
 }
@@ -154,12 +155,12 @@ if (names.length > 6){
 
 
 
-$('#show').click(function(){
+$('#show').click(function(){ //when cliked 'show more', show the rest;
   if(showed === false){
   $(".images").append(makeHtml(restNames, 'restNames'));
   $('#show').text('Show less');
   showed = true;
-  added = $('.image-box[data-cl="restNames"]');
+  added = $('.image-box[data-show="restNames"]');
 }
 else {
   added.remove();

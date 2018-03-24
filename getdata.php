@@ -1,5 +1,5 @@
 <?php
-$dir = __DIR__ "/gallery";
-$files = scandir($dir,1);
+$dir = __DIR__."/gallery";
+$files = scandir($dir);
 echo json_encode($files);
 ?>
