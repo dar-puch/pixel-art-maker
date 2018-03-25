@@ -8,12 +8,12 @@ $(function() {
     const widthInput = $('#input_width');
     const heightInput = $('#input_height');
     const resizeInput = $('#pixel_resize');
-    let initialCellColor = 'rgba(0, 0, 0, 0)'; //set color for empty cells
+    let initialCellColor = '#ffffff'; //set color for empty cells
     let containerWidth = $('.canvas').width();
     resizeInput.val('20'); //default values
     widthInput.val('10');
     heightInput.val('10');
-    colorInput.val('rgba(0, 0, 0, 1)') //reset color picker
+    colorInput.val('#000000') //reset color picker
 
     let maxWidth = Math.floor(containerWidth/resizeInput.val());
     widthInput.attr({'max': maxWidth});
@@ -111,20 +111,21 @@ $('#save').click(function(){
     $('.info').text(text);
 
   }
-  let imageTable = $('#pixel_canvas').html;
-  console.log('imageTable: ' + imageTable);
-    domtoimage.toPng(document.getElementById('pixel_canvas')).then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        $.post('img_save.php', {data: img.src});
+
+  html2canvas(document.getElementById('pixel_canvas')).then(canvas => {
+      var dataUrl = canvas.toDataURL('image/png');
+
+  
+      img.src = dataUrl;
+      console.log('imgsrc: ' + dataUrl);
+      $.post('img_save.php', {data: img.src});
 setTimeout(empty, 5000);
 info('Your image was succesfully saved to gallery');
 $(".images").prepend("<div class='image-box'><img src='" + img.src + "'/></div>");
 }).catch(function () {
-  setTimeout(empty, 5000);
-  info('Image could not be saved');
+setTimeout(empty, 5000);
+info('Image could not be saved');
 });
-
   }); //end save
 
 //load images

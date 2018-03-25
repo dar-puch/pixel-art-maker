@@ -27,7 +27,7 @@ Images are in .png format so you can download it with browser.
 
 Those are complete files to upload them to the server (requires PHP)
 
-##Issues
+## Issues
 Not saving images with Chrome, on Android saving it cut off. I'm trying to resolve it.
 
 ## Built With
