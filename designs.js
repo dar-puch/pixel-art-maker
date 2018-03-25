@@ -113,9 +113,8 @@ $('#save').click(function(){
   }
 
   html2canvas(document.getElementById('pixel_canvas')).then(canvas => {
+          var img = new Image();
       var dataUrl = canvas.toDataURL('image/png');
-
-  
       img.src = dataUrl;
       console.log('imgsrc: ' + dataUrl);
       $.post('img_save.php', {data: img.src});
