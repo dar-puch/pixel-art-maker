@@ -28,10 +28,10 @@ Images are in .png format so you can download it with browser.
 Those are complete files to upload them to the server (requires PHP)
 
 ## Issues
-Not saving images with Chrome, on Android saving it cut off. I'm trying to resolve it.
+Chrome: When converting to png, image is shifted some pixels to the right and is being cut-off.
 
 ## Built With
-[dom-to-image library] (https://github.com/tsayen/dom-to-image) - used to generate images
+https://github.com/niklasvh/html2canvas - used to generate images
 
 ## Authors
 
